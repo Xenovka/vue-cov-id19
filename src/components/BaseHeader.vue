@@ -1,24 +1,36 @@
 <template>
-  <form @submit.prevent="searchData">
-    <input type="text" name="inputCountry" id="input_country" ref="inputCountry">
-  <input type="submit" value="Search">
+  <form @submit.prevent="selectCountry">
+    <select name="countries" id="countries" class="select" v-model="selected">
+      <option selected disabled>Select Country</option>
+      <option v-for="country in countryList" :key="country" :value="country">{{ country }}</option>
+    </select>
+    <input type="submit" value="Search">
   </form>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { onMounted, provide, ref } from 'vue'
+import axios from 'axios'
 
 export default {
   setup() {
-    const inputCountry = ref(null)
+    const selected = ref(null)
+    const countryList = ref(null)
 
-    const searchData = () => {
-      const country = inputCountry.value.value
-      inputCountry.value.value = ""
-      console.log(country)
+    onMounted(() =>{ 
+      axios.get('https://covid-api.mmediagroup.fr/v1/cases')
+        .then(response => countryList.value = Object.keys(response.data))
+    })
+
+    const selectCountry = () => {
+      if(!selected.value) {
+        return alert('select country!')
+      }
     }
 
-    return { inputCountry, searchData }
+    provide('country', selected);
+
+    return { selected, selectCountry, countryList }
   }
 }
 </script>
