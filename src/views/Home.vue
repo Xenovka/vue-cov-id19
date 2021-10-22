@@ -1,28 +1,44 @@
 <template>
-  <base-header></base-header>
-  <div v-show="selectedCountry">
-    <display-data></display-data>
+  <form @submit.prevent="selectCountry">
+    <select name="countries" id="countries" class="select" v-model="selected">
+      <option value="select" selected disabled>Select Country</option>
+      <option v-for="country in countryList" :key="country" :value="country">{{ country }}</option>
+    </select>
+    <input type="submit" value="Search">
+  </form>
+  <div v-if="isSelected">
+    <display-data :country="selected"></display-data>
   </div>
 </template>
 
 <script>
-import { inject, onMounted } from 'vue';
-import BaseHeader from '../components/BaseHeader.vue'
+import { onMounted, ref} from 'vue';
+import axios from 'axios'
 import DisplayData from '../components/DisplayData.vue'
 
 export default {
   components: {
-    BaseHeader,
     DisplayData
   },
   setup() {
-    const selectedCountry = inject('country');
+    const selected = ref(null)
+    const countryList = ref(null)
+    const isSelected = ref(false)
 
     onMounted(() =>{ 
-      console.log(selectedCountry)
-    }, DisplayData)
+      axios.get('https://covid-api.mmediagroup.fr/v1/cases')
+        .then(response => countryList.value = Object.keys(response.data))
+    })
 
-    return {selectedCountry}
+    const selectCountry = () => {
+      if(!selected.value) {
+        return alert('please select a country to continue!')
+      }
+
+      isSelected.value = true
+    }
+
+    return {selected, selectCountry, countryList, isSelected }
   }
 }
 </script>
