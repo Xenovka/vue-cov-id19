@@ -7,7 +7,7 @@
     <input type="submit" value="Search">
   </form>
   <div v-if="isSelected">
-    <display-data :country="selected"></display-data>
+    <display-data :covData="covidData"></display-data>
   </div>
 </template>
 
@@ -24,21 +24,26 @@ export default {
     const selected = ref(null)
     const countryList = ref(null)
     const isSelected = ref(false)
+    const covidData = ref(null)
 
     onMounted(() =>{ 
       axios.get('https://covid-api.mmediagroup.fr/v1/cases')
         .then(response => countryList.value = Object.keys(response.data))
     })
 
-    const selectCountry = () => {
+    const selectCountry = async () => {
       if(!selected.value) {
         return alert('please select a country to continue!')
       }
 
+      const response = await fetch(`https://covid-api.mmediagroup.fr/v1/cases?country=${selected.value}`)
+      const result = await response.json()
+      covidData.value = result['All']
+
       isSelected.value = true
     }
 
-    return {selected, selectCountry, countryList, isSelected }
+    return {selected, selectCountry, countryList, isSelected, covidData }
   }
 }
 </script>

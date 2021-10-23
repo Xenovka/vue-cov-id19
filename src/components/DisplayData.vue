@@ -1,27 +1,27 @@
 <template>
-  <h1>{{ covidData['All'].country }}</h1>
+  <div v-if="covidData">
+    <h3>Country: {{ covidData.country }}</h3>
+    <h3>Confirmed: {{ covidData.confirmed }}</h3>
+    <h3>Recovered: {{ covidData.recovered }}</h3>
+    <h3>Deaths: {{ covidData.deaths }}</h3>
+    <p>Last Updated: {{ covidData.updated }}</p>
+  </div>
 </template>
 
 <script>
 import { onMounted, onUpdated, ref } from 'vue'
 
 export default {
-  props: ['country'],
+  props: ['covData'],
   setup(props) {
     const covidData = ref(null)
 
-    const getData = async (country) => {
-      const result = await fetch(`https://covid-api.mmediagroup.fr/v1/cases?country=${country}`)
-      covidData.value = await result.json()
-    }
-
-    onMounted(async () => {
-      await getData(props.country)
-      console.log(covidData.value)
+    onMounted(() => {
+      covidData.value = props.covData
     })
 
     onUpdated(() => {
-      getData(props.country)
+      covidData.value = props.covData
     })
 
     return { covidData }
