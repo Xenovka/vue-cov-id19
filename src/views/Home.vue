@@ -31,14 +31,13 @@ export default {
         .then(response => countryList.value = Object.keys(response.data))
     })
 
-    const selectCountry = async () => {
+    const selectCountry = () => {
       if(!selected.value) {
         return alert('please select a country to continue!')
       }
 
-      const response = await fetch(`https://covid-api.mmediagroup.fr/v1/cases?country=${selected.value}`)
-      const result = await response.json()
-      covidData.value = result['All']
+      axios.get(`https://covid-api.mmediagroup.fr/v1/cases?country=${selected.value}`)
+        .then(response => covidData.value = response.data['All'])
 
       isSelected.value = true
     }
