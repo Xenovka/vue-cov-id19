@@ -1,0 +1,39 @@
+.main-container {
+  padding: 2rem 1rem;
+}
+
+.select,
+.select > option,
+.input-btn {
+  font-size: 1.6rem;
+}
+
+.select {
+  border: 1px solid #ccc;
+}
+
+.input-btn {
+  background-color: #ddd;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  margin-left: 1rem;
+}
+
+.select,
+.input-btn {
+  padding: 8px 14px;
+}
+
+.details {
+  font-size: 3rem;
+}
+
+.up-date {
+  font-size: 1.6rem;
+}
+
+.content-wrapper,
+.input-wrapper {
+  margin-top: 4rem !important;
+}
