@@ -12,6 +12,10 @@
   border: 1px solid #ccc;
 }
 
+.select:focus-visible {
+  outline: none;
+}
+
 .input-btn {
   background-color: #ddd;
   border: none;
@@ -26,11 +30,60 @@
 }
 
 .details {
-  font-size: 3rem;
+  margin-top: 1.5rem;
+  padding: 3rem;
+  border-radius: 8px;
+}
+
+.fdose-total,
+.sdose-total {
+  background: rgb(38, 165, 221);
+  background: linear-gradient(90deg, rgba(61, 187, 241, 0.856) 0%, rgba(7, 181, 201, 0.6982143199076505) 100%);
+}
+
+.confirmed-total {
+  background: rgb(221, 174, 33);
+  background: linear-gradient(90deg, rgba(221, 174, 33, 0.7962535355939251) 0%, rgba(214, 182, 18, 0.7234244039412641) 100%);
+}
+
+.deaths-total {
+  background: rgb(193, 7, 67);
+  background: linear-gradient(90deg, rgba(193, 7, 67, 0.7962535355939251) 0%, rgba(230, 12, 42, 0.7234244039412641) 100%);
+}
+
+.details-text,
+.details-title {
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: 700;
+}
+
+.details-text {
+  font-size: 2.6rem;
+}
+
+.details-title {
+  font-size: 1.8rem;
 }
 
 .up-date {
+  margin-top: 3rem;
   font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.country-name {
+  font-size: 2.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.footer-text,
+.footer-link {
+  font-size: 1.6rem;
+}
+
+.footer-link {
+  text-decoration: none;
 }
 
 .content-wrapper,
